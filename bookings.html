@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bookings | QND Eventiques</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">QND Eventiques</h1>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="bookings.html" class="active">Bookings</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+    </nav>
+  </header>
+
+  <main class="page-content">
+    <section class="contact-section">
+      <h2>Saved Enquiries & Bookings</h2>
+      <p class="small-note">These items are saved locally in your browser (localStorage). This is a lightweight way to review enquiries without a backend. You can export them as CSV or clear the list.</p>
+
+      <div id="controls" style="margin:18px 0; display:flex; gap:12px; flex-wrap:wrap;">
+        <button id="exportCsv" class="btn">Export CSV</button>
+        <button id="clearAll" class="btn ghost">Clear All</button>
+        <a href="index.html" class="btn">Back to Site</a>
+      </div>
+
+      <div id="bookingsList"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-info">
+        <h3>QND Eventiques</h3>
+        <p>Turning your vision into unforgettable memories.</p>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2025 QND Eventiques. All rights reserved.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    // Render bookings saved in localStorage by js/script.js
+    function getBookingsLocal() {
+      try { return JSON.parse(localStorage.getItem('qnd_bookings_v1') || '[]'); } catch (e) { return []; }
+    }
+
+    function render() {
+      const list = getBookingsLocal();
+      const container = document.getElementById('bookingsList');
+      if (!container) return;
+      if (list.length === 0) {
+        container.innerHTML = '<p class="small-note">No saved enquiries yet.</p>';
+        return;
+      }
+
+      const html = list.map((b, i) => {
+        const t = new Date(b.timestamp || '').toLocaleString();
+        let body = '';
+        if (b.type === 'contact_form') {
+          body = `<strong>${escapeHtml(b.name)}</strong> — ${escapeHtml(b.phone || '')} <br/> ${escapeHtml(b.email || '')} <div class="small-note">${escapeHtml(b.message || '')}</div>`;
+        } else if (b.type === 'service_enquiry') {
+          body = `<strong>Service:</strong> ${escapeHtml(b.service)} <div class="small-note">Saved from quick enquiry</div>`;
+        } else {
+          body = `<pre>${escapeHtml(JSON.stringify(b, null, 2))}</pre>`;
+        }
+        return `<div class="team-card" style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center"><div>${body}</div><div class="small-note">${t}</div></div></div>`;
+      }).join('\n');
+      container.innerHTML = html;
+    }
+
+    function escapeHtml(s) { return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function exportCsv() {
+      const rows = getBookingsLocal();
+      if (!rows.length) return alert('No bookings to export');
+      const keys = Array.from(new Set(rows.flatMap(r => Object.keys(r))));
+      const csv = [keys.join(',')].concat(rows.map(r => keys.map(k => '"'+String(r[k] || '').replace(/"/g,'""')+'"').join(','))).join('\n');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'qnd_bookings.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('exportCsv').addEventListener('click', exportCsv);
+    document.getElementById('clearAll').addEventListener('click', () => {
+      if (!confirm('Clear all saved enquiries? This cannot be undone.')) return;
+      localStorage.removeItem('qnd_bookings_v1'); render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
