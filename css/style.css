@@ -1,10 +1,10 @@
 /* Root colors */
 :root {
-  --pink: #F7CAC9;
-  --blue: #92A8D1;
+  --blue: #92A8D1;      /* Primary accent color (Muted Blue) */
+  --pink: #F5B9C8;      /* Primary background/secondary accent color (Slightly Deeper Pastel Pink) */
   --white: #FFFFFF;
-  --dark: #333;
-  --muted: #666;
+  --dark: #2C3E50;      /* Soft Dark Blue/Grey for main text (Better readability) */
+  --muted: #7F8C8D;     /* Muted grey for secondary text */
 }
 
 /* Base */
@@ -28,7 +28,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h2 {
   font-size: 2.2rem;
-  color: var(--blue);
+  color: var(--pink); /* Heading color set to Pink for a softer feel */
   margin-bottom: 24px;
 }
 
@@ -38,7 +38,7 @@ p {
 
 /* NAV */
 .navbar {
-  background: var(--blue);
+  background: var(--pink); /* Navbar is now Pink */
   color: white;
   display: flex;
   justify-content: space-between;
@@ -75,7 +75,7 @@ p {
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: var(--pink);
+  color: var(--dark); /* Dark text on pink background for excellent contrast */
   transform: translateY(-2px);
 }
 
@@ -97,8 +97,9 @@ p {
 
 /* Hero (home header) */
 .hero {
-  background: linear-gradient(90deg, rgba(247, 202, 201, 0.9), rgba(146, 168, 209, 0.85)),
-    url("") center/cover no-repeat;
+  /* Using the corrected Blue color for the gradient overlay */
+  background: linear-gradient(90deg, rgba(146,168,209,0.85), rgba(245, 185, 200, 0.9)),
+    url("images/finden-marketing-m0WOBC7lHTI-unsplash.jpg") center/cover no-repeat; /* Corrected path syntax */
   color: white;
   text-align: center;
   padding: 110px 18px;
@@ -119,20 +120,20 @@ p {
 
 .btn {
   display: inline-block;
-  background: var(--pink);
+  background: var(--blue); /* Button background is Blue */
   color: #fff;
   padding: 10px 18px;
   border-radius: 30px;
   text-decoration: none;
   font-weight: 700;
   transition: transform .18s ease, background .18s ease;
-  border: 1px solid var(--pink);
+  border: 1px solid var(--blue);
 }
 
 .btn:hover {
   transform: translateY(-3px);
-  background: var(--blue);
-  border-color: var(--blue);
+  background: var(--pink); /* Hover background is Pink */
+  border-color: var(--pink); 
 }
 
 /* Featured cards */
@@ -169,7 +170,7 @@ p {
 }
 
 .card h3 {
-  color: var(--blue);
+  color: var(--pink); /* Card titles are Pink */
   margin: 14px 16px 6px;
 }
 
@@ -208,7 +209,7 @@ p {
 }
 
 .service-body h3 {
-  color: var(--blue);
+  color: var(--pink); /* Service titles are Pink */
 }
 
 .service-body p {
@@ -299,12 +300,12 @@ p {
 }
 
 .team-card i {
-  color: var(--pink);
+  color: var(--blue); /* Icon color is Blue */
   margin-bottom: 16px;
 }
 
 .team-card h3 {
-  color: var(--blue);
+  color: var(--pink); /* Team card titles are Pink */
 }
 
 /* FAQ */
@@ -335,7 +336,7 @@ p {
 }
 
 .faq-q:hover {
-  color: var(--blue);
+  color: var(--pink); /* FAQ hover is Pink */
 }
 
 .faq-a {
@@ -378,8 +379,8 @@ textarea {
 .form-row input:focus,
 textarea:focus {
   outline: none;
-  border-color: var(--blue);
-  box-shadow: 0 0 5px rgba(146, 168, 209, 0.5);
+  border-color: var(--pink); /* Focus border is Pink */
+  box-shadow: 0 0 5px rgba(245, 185, 200, 0.5); /* Pink glow */
 }
 
 textarea {
@@ -395,25 +396,24 @@ textarea {
   margin-top: 6px;
 }
 
-/* FIXED: Ghost button was white-on-white. Changed to use --blue. */
 .btn.ghost {
   background: transparent;
-  border: 1px solid var(--blue);
-  color: var(--blue);
+  border: 1px solid var(--pink); /* Ghost button border is Pink */
+  color: var(--pink); /* Ghost button text is Pink */
   padding: 10px 14px;
   border-radius: 30px;
   text-decoration: none;
 }
 
 .btn.ghost:hover {
-  background: var(--blue);
+  background: var(--pink); /* Ghost button hover background is Pink */
   color: var(--white);
-  border-color: var(--blue);
+  border-color: var(--pink);
 }
 
 /* Footer */
 footer {
-  background: var(--blue);
+  background: var(--pink); /* Footer background is Pink */
   color: #fff;
   padding: 28px 18px;
   margin-top: 48px;
@@ -452,8 +452,8 @@ footer {
 }
 
 .socials a:hover {
+  color: var(--dark); /* Dark text on pink background for excellent contrast */
   transform: scale(1.1) translateY(-2px);
-  color: var(--pink);
 }
 
 .footer-bottom {
@@ -509,6 +509,45 @@ footer {
   transform: translateY(0);
 }
 
+/* CSS from last time (for new sections) */
+.section-intro {
+  text-align: center;
+  color: var(--muted);
+  font-size: 1.05rem;
+  max-width: 700px;
+  margin: -15px auto 30px auto;
+}
+
+.services-grid-small {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.service-item-small {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.service-item-small h3 {
+  color: var(--pink); /* Small service titles are Pink */
+  font-size: 1.1rem;
+}
+
+.service-item-small p {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Add margin between service sections */
+.services-list + .services-list {
+  margin-top: 60px;
+}
+
+
 /* Responsive */
 @media (max-width:900px) {
   .about-hero .about-inner {
@@ -525,7 +564,7 @@ footer {
     position: absolute;
     top: 64px;
     right: 16px;
-    background: var(--blue);
+    background: var(--pink); /* Mobile menu background is Pink */
     padding: 16px;
     border-radius: 8px;
     flex-direction: column;
@@ -561,42 +600,4 @@ footer {
     align-items: center;
     text-align: center;
   }
-}
-/* Add this to the bottom of your style.css file */
-
-.section-intro {
-  text-align: center;
-  color: var(--muted);
-  font-size: 1.05rem;
-  max-width: 700px;
-  margin: -15px auto 30px auto;
-}
-
-.services-grid-small {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
-}
-
-.service-item-small {
-  background: #fff;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  text-align: center;
-}
-
-.service-item-small h3 {
-  color: var(--blue);
-  font-size: 1.1rem;
-}
-
-.service-item-small p {
-  color: var(--muted);
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-/* Add margin between service sections */
-.services-list + .services-list {
-  margin-top: 60px;
 }
